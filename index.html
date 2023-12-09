@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+</head>
+<body>
+        <h1>Member List</h1>
+        <label for="">
+            <select class="group">
+                <option hidden">選択してください</option>
+                <option value="groupA">groupA</option>
+                <option value="groupB">groupB</option>
+                <option value="groupC">groupC</option>
+            </select>
+        </label>
+        <div id="loading">
+            <img src="./img/9gu9.gif" alt="">
+            <p>loading...</p>
+        </div>
+        <div>
+            <ul id="member-list">
+                
+            </ul>
+        </div>
+        <div>
+            <p id="content"></p>
+        </div>
+        <div>
+            <p id="error"></p>
+        </div>
+  
+    <script>
+        //ページが読み込まれる際に実行→即時関数
+        //ajax通信を行うときはローカルでサーバーを建てる必要がある 
+        //JSON.stringify()でJSONオブジェクトを文字列に変換してくれる
+
+        //groupのセレクターが変更されたら発火
+        $(".group").change( ()=> {
+            
+            $('#loading').show()
+            $('#member-list').empty()
+
+            setTimeout(getMemberList, 2000);
+        });
+
+        function getMemberList() {
+            $.ajax({
+                type: 'GET',
+                dataType: "json",
+                url: "./api.php"
+            })
+            .done((data) => {
+                $('#loading').hide()
+                const group = $('.group').val()
+                console.log('slect change',group)
+                const list = data[group]
+                console.log('slect list',list)
+                list.map(member => {
+                    $('#member-list').append($('<li/>').text(`name: ${member.name} age: ${member.age}`))
+                });
+            })
+            .fail((error) => {
+                content = error;
+                console.log(content)
+            })
+            .always("complete");
+        }
+
+    </script>
+</body>
+<style>
+    #loading{
+        display: none;
+    }
+</style>
+</html>

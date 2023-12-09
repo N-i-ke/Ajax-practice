@@ -1,0 +1,18 @@
+{
+    "groupA": [
+        {"name": "tanaka", "age": 20},
+        {"name": "akai", "age": 20},
+        {"name": "terui", "age": 20},
+        {"name": "sakaki", "age": 20},
+        {"name": "taira", "age": 20}
+    ],
+    "groupB": [
+        {"name": "ueda", "age": 20},
+        {"name": "eguchi", "age": 20},
+        {"name": "ota", "age": 20}
+    ],
+    "groupC": [
+        {"name": "nakayama", "age": 20},
+        {"name": "kinosita", "age": 20}
+    ]
+}
